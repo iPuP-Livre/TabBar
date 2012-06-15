@@ -3,19 +3,58 @@
 //  TabBar
 //
 //  Created by Marian PAUL on 21/03/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 iPuP SARL. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+#import "ThirdViewController.h"
+#import "FourthViewController.h"
+#import "FifthViewController.h"
+#import "SixthViewController.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize tabBarController = _tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
+    self.tabBarController = [[UITabBarController alloc] init];
+    
+    FirstViewController *firstViewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];                 
+    firstViewController.title = @"Premier";
+    
+    SecondViewController *secondViewController = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];                 
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:secondViewController];
+    navigationController.title = @"Deuxième";
+    [navigationController setNavigationBarHidden:NO];
+    
+    ThirdViewController *thirdViewController = [[ThirdViewController alloc] initWithNibName:@"ThirdViewController" bundle:nil];                 
+    thirdViewController.title = @"Troisième";
+    
+    FourthViewController *fourthViewController = [[FourthViewController alloc] initWithNibName:@"FourthViewController" bundle:nil];                 
+    fourthViewController.title = @"Quatrième";
+    
+    FifthViewController *fifthViewController = [[FifthViewController alloc] initWithNibName:@"FifthViewController" bundle:nil];
+    UITabBarItem *tabBarItemFifth = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:5];
+    fifthViewController.tabBarItem = tabBarItemFifth;
+    
+    SixthViewController *sixthViewController = [[SixthViewController alloc] initWithNibName:@"SixthViewController" bundle:nil];
+    UITabBarItem *tabBarItemSixth = [[UITabBarItem alloc] initWithTitle:@"Sixième" image:[UIImage imageNamed:@"17-bar-chart.png"] tag:6];
+    sixthViewController.tabBarItem = tabBarItemSixth;
+    
+    _tabBarController.viewControllers = [NSArray arrayWithObjects:firstViewController, navigationController, thirdViewController, fourthViewController, fifthViewController, sixthViewController, nil];
+    
+    [_tabBarController.tabBar setTintColor:[UIColor redColor]];
+    [_tabBarController.tabBar setSelectedImageTintColor:[UIColor grayColor]];
+    
+    [_window addSubview:_tabBarController.view];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
